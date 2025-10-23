@@ -1,5 +1,4 @@
 package com.java.cadastro_usuario.controller;
-
 import com.java.cadastro_usuario.business.UserService;
 import com.java.cadastro_usuario.infrastructure.entitys.User;
 import lombok.RequiredArgsConstructor;

@@ -2,6 +2,7 @@ package com.java.cadastro_usuario.business;
 
 import com.java.cadastro_usuario.infrastructure.entitys.User;
 import com.java.cadastro_usuario.infrastructure.repository.UserRepository;
+import com.java.cadastro_usuario.utils.BcryptPasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +13,14 @@ public class UserService {
     private final UserRepository repository;
 
     public User save_user(User user) {
+
+        String hashPassword  = BcryptPasswordEncoder.hashPassword(user.getSenha());
+        user.setSenha(hashPassword);
         return repository.saveAndFlush(user);
     }
 
     public User get_user_by_email(String email) {
-        return repository.findByEmail(email).orElseThrow(
-                () -> new RuntimeException("Email não encontrado")
-        );
+        return repository.findByEmail(email);
     }
 
     public void delete_user_by_email(String email) {
